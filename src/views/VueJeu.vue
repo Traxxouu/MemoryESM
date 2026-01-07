@@ -16,7 +16,19 @@ const imagesDisponibles = [
   'kenny.png',
   'kyle.png',
   'randy.png',
-  'stan.png'
+  'stan.png',
+  'chef.png',
+  'timmy.png',
+  'jimmy.png',
+  'token.png',
+  'tweek.png',
+  'craig.png',
+  'wendy.png',
+  'bebe.png',
+  'clyde.png',
+  'pip.png',
+  'ike.png',
+  'sharon.png'
 ]
 
 const cartes = ref([])
@@ -26,7 +38,10 @@ const partieTerminee = ref(false)
 const enTraitement = ref(false)
 
 // Nombre de paires POUR LA GRILLE
-const nombrePaires = computed(() => (niveau * niveau) / 2)
+const nombrePaires = computed(() => {
+  // Pour avoir un nombre pair de cartes
+  return Math.floor((niveau * niveau) / 2)
+})
 const nombrePairesReelles = computed(() =>
   Math.min(nombrePaires.value, imagesDisponibles.length)
 )
