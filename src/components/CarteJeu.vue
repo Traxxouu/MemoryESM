@@ -32,7 +32,7 @@ function surClic() {
     <!-- Face visible -->
     <div class="face face-visible">
       <img
-        :src="`/src/assets/southpark/${carte.image}`"
+        :src="`/southpark/${carte.image}`"
         alt="personnage south park"
       />
     </div>
