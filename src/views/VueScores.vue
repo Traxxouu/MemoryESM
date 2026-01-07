@@ -25,6 +25,8 @@ const scoresTries = computed(() => {
       comparaison = b.niveau - a.niveau // Plus dur en premier
     } else if (triActuel.value === 'pseudo') {
       comparaison = a.pseudo.localeCompare(b.pseudo)
+    } else if (triActuel.value === 'temps') {
+      comparaison = a.temps - b.temps
     }
     
     return ordreAscendant.value ? -comparaison : comparaison
@@ -86,6 +88,13 @@ function sauvegarderPseudo(id) {
   scoreEnEdition.value = null
   nouveauPseudo.value = ''
 }
+
+function formaterTemps(totalSecondes) {
+  if (!totalSecondes) return '--:--'
+  const minutes = Math.floor(totalSecondes / 60)
+  const secs = totalSecondes % 60
+  return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+}
 </script>
 
 <template>
@@ -115,6 +124,9 @@ function sauvegarderPseudo(id) {
             <th @click="changerTri('essais')">
               Essais {{ triActuel === 'essais' ? (ordreAscendant ? '↑' : '↓') : '' }}
             </th>
+            <th @click="changerTri('temps')">
+              Temps {{ triActuel === 'temps' ? (ordreAscendant ? '↑' : '↓') : '' }}
+            </th>
             <th @click="changerTri('date')">
               Date {{ triActuel === 'date' ? (ordreAscendant ? '↑' : '↓') : '' }}
             </th>
@@ -137,6 +149,7 @@ function sauvegarderPseudo(id) {
             </td>
             <td>{{ score.niveau }} x {{ score.niveau }}</td>
             <td>{{ score.essais }}</td>
+            <td>{{ formaterTemps(score.temps) }}</td>
             <td>{{ score.date }}</td>
             <td>
               <span v-if="scoreEnEdition !== score.id">
