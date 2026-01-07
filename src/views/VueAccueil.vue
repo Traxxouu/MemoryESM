@@ -1,3 +1,4 @@
+<!-- Par Sofiane -->
 <script setup>
 // Page d'accueil - Saisie du pseudo et choix du niveau
 import { ref } from 'vue'
