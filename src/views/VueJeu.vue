@@ -4,6 +4,7 @@ import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import PlateauJeu from '../components/PlateauJeu.vue'
 import Chronometre from '../components/Chronometre.vue'
+import MessageVictoire from '../components/MessageVictoire.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -177,12 +178,15 @@ initialiserCartes()
             @tempsEcoule="onTempsEcoule" 
         />
     </div>
-    <div v-if="partieTerminee" class="message-victoire">
-        <h3>YOUHOUUU {{ pseudo }} !</h3>
-        <p>Victoire en {{ nombreEssais }} essais et {{ tempsPartie }} secondes</p>
-        <button @click="rejouer">Rejouer</button>
-        <button @click="retourAccueil">Retour accueil</button>
-    </div>
+
+    <MessageVictoire
+        v-if="partieTerminee"
+        :pseudo="pseudo"
+        :essais="nombreEssais"
+        :temps="tempsPartie"
+        @rejouer="rejouer"
+        @accueil="retourAccueil"
+    />
 
     <PlateauJeu
       :cartes="cartes"
@@ -193,19 +197,44 @@ initialiserCartes()
 </template>
 
 <style scoped>
-.jeu {
-  padding: 20px;
-}
+    .jeu {
+        padding: 20px;
+    }
 
-.infos-partie {
-  display: flex;
-  justify-content: space-between;
-  max-width: 600px;
-  margin: 0 auto 20px;
-}
+    .infos-partie {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
 
-.message-victoire {
-  text-align: center;
-  margin-bottom: 20px;
-}
+    .info {
+        background-color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        border: 2px solid #2E8B57;
+    }
+
+    .message-victoire h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .boutons-victoire button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: #FF6B00;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: inherit;
+    }
+
+    .boutons-victoire button:hover {
+        background-color: #ff8533;
+    }
 </style>

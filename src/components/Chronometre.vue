@@ -65,3 +65,13 @@ onUnmounted(() => {
     ⏱️ {{ formaterTemps(secondes) }}
   </div>
 </template>
+
+<style scoped>
+    .chrono {
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    border: 2px solid #2E8B57;
+    }
+</style>

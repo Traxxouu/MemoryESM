@@ -36,10 +36,13 @@ function surClicCarte(idCarte) {
 </template>
 
 <style scoped>
-.plateau {
-  display: grid;
-  gap: 12px;
-  max-width: 600px;
-  margin: 0 auto;
-}
+    .plateau {
+    display: grid;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #2E8B57;
+    border-radius: 15px;
+    }
 </style>

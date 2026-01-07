@@ -167,3 +167,79 @@ function formaterTemps(totalSecondes) {
     </div>
   </div>
 </template>
+
+<style scoped>
+    .scores {
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #2E8B57;
+        margin-bottom: 20px;
+    }
+
+    .aucun-score {
+        text-align: center;
+        background-color: white;
+        padding: 40px;
+        border-radius: 15px;
+        border: 3px solid #2E8B57;
+    }
+
+    .btn-supprimer-tout {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        font-family: inherit;
+        font-weight: bold;
+    }
+
+    .tableau-scores {
+        width: 100%;
+        background-color: white;
+        border-radius: 15px;
+        overflow: hidden;
+        border-collapse: collapse;
+    }
+
+    .tableau-scores th {
+        background-color: #2E8B57;
+        color: white;
+        padding: 15px 10px;
+        cursor: pointer;
+    }
+
+    .tableau-scores th:hover {
+        background-color: #3da06a;
+    }
+
+    .tableau-scores td {
+        padding: 12px 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .tableau-scores tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .tableau-scores button {
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin: 0 3px;
+    }
+
+    .tableau-scores input {
+        padding: 5px;
+        border: 2px solid #2E8B57;
+        border-radius: 5px;
+        width: 100px;
+    }
+</style>

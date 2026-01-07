@@ -70,3 +70,63 @@ function demarrerPartie() {
     </div>
   </div>
 </template>
+
+<style scoped>
+    .accueil {
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    h2 {
+        color: #2E8B57;
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .formulaire {
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        max-width: 400px;
+        margin: 0 auto;
+        border: 3px solid #2E8B57;
+    }
+
+    .champ {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+        border: 2px solid #2E8B57;
+        border-radius: 8px;
+        font-family: inherit;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: white;
+        background-color: #FF6B00;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: inherit;
+    }
+
+    button:hover {
+        background-color: #ff8533;
+    }
+</style>
