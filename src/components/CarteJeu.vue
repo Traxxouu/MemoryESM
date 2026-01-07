@@ -26,7 +26,7 @@ function surClic() {
   >
     <!-- Face cachée -->
     <div class="face face-cachee">
-      SOUTH PARK
+      ?
     </div>
 
     <!-- Face visible -->
