@@ -3,6 +3,7 @@
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import PlateauJeu from '../components/PlateauJeu.vue'
+import Chronometre from '../components/Chronometre.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -37,6 +38,8 @@ const cartesRetournees = ref([])
 const nombreEssais = ref(0)
 const partieTerminee = ref(false)
 const enTraitement = ref(false)
+const chronoRef = ref(null)
+const tempsPartie = ref(0)
 
 // Nombre de paires POUR LA GRILLE
 const nombrePaires = computed(() => {
@@ -51,6 +54,11 @@ const partieGagnee = computed(() =>
   cartes.value.length > 0 &&
   cartes.value.every(carte => carte.estTrouvee)
 )
+
+// ajout pour le chrono
+function onTempsEcoule(temps) {
+  tempsPartie.value = temps
+}
 
 function initialiserCartes() {
   const imagesChoisies = imagesDisponibles.slice(0, nombrePairesReelles.value)
@@ -78,6 +86,14 @@ function initialiserCartes() {
   }
 
   cartes.value = tableauCartes
+
+  // Démarrer le chrono apres avoir créé les cartes
+  setTimeout(() => {
+    if (chronoRef.value) {
+      chronoRef.value.reset()
+      chronoRef.value.demarrer()
+    }
+  }, 100)
 }
 
 function surClicCarte(idCarte) {
@@ -96,22 +112,25 @@ function surClicCarte(idCarte) {
     const [carte1, carte2] = cartesRetournees.value
 
     if (carte1.image === carte2.image) {
-      carte1.estTrouvee = true
-      carte2.estTrouvee = true
-      cartesRetournees.value = []
-      enTraitement.value = false
-
-      if (partieGagnee.value) {
-        partieTerminee.value = true
-        sauvegarderScore()
-      }
-    } else {
-      setTimeout(() => {
-        carte1.estRetournee = false
-        carte2.estRetournee = false
+        carte1.estTrouvee = true
+        carte2.estTrouvee = true
         cartesRetournees.value = []
         enTraitement.value = false
-      }, 1000)
+
+        if (partieGagnee.value) {
+            partieTerminee.value = true
+            if (chronoRef.value) {
+            chronoRef.value.arreter()
+            }
+            sauvegarderScore()
+        }
+    } else {
+        setTimeout(() => {
+            carte1.estRetournee = false
+            carte2.estRetournee = false
+            cartesRetournees.value = []
+            enTraitement.value = false
+        }, 1000)
     }
   }
 }
@@ -124,6 +143,7 @@ function sauvegarderScore() {
     pseudo,
     niveau,
     essais: nombreEssais.value,
+    temps: tempsPartie.value,
     date: new Date().toLocaleDateString('fr-FR')
   })
 
@@ -135,6 +155,7 @@ function rejouer() {
   partieTerminee.value = false
   cartesRetournees.value = []
   enTraitement.value = false
+  tempsPartie.value = 0
   initialiserCartes()
 }
 
@@ -148,15 +169,19 @@ initialiserCartes()
 <template>
   <div class="jeu">
     <div class="infos-partie">
-      <p>Joueur : <strong>{{ pseudo }}</strong></p>
-      <p>Niveau : <strong>{{ niveau }} x {{ niveau }}</strong></p>
-      <p>Essais : <strong>{{ nombreEssais }}</strong></p>
+        <p>Joueur : <strong>{{ pseudo }}</strong></p>
+        <p>Niveau : <strong>{{ niveau }} x {{ niveau }}</strong></p>
+        <p>Essais : <strong>{{ nombreEssais }}</strong></p>
+        <Chronometre 
+            ref="chronoRef" 
+            @tempsEcoule="onTempsEcoule" 
+        />
     </div>
     <div v-if="partieTerminee" class="message-victoire">
-      <h3>YOUHOUUU {{ pseudo }} !</h3>
-      <p>Victoire en {{ nombreEssais }} essais</p>
-      <button @click="rejouer">Rejouer</button>
-      <button @click="retourAccueil">Retour accueil</button>
+        <h3>YOUHOUUU {{ pseudo }} !</h3>
+        <p>Victoire en {{ nombreEssais }} essais et {{ tempsPartie }} secondes</p>
+        <button @click="rejouer">Rejouer</button>
+        <button @click="retourAccueil">Retour accueil</button>
     </div>
 
     <PlateauJeu
